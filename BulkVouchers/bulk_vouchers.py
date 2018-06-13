@@ -56,12 +56,20 @@ class GeneratePrintingFile(object):
                 temp_counter = 0
                 doc_row = []
                 voucher_field = data[i]
-                while temp_counter < num_columns:
-                    doc_row.append(voucher_field[counter])
-                    counter += 1
-                    temp_counter += 1
-                counter -= temp_counter
-                self.prepare_row(doc_row)
+                if (num_of_vouchers - counter) >= num_columns:
+                    while temp_counter < num_columns:
+                        doc_row.append(voucher_field[counter])
+                        counter += 1
+                        temp_counter += 1
+                    counter -= temp_counter
+                    self.prepare_row(doc_row)
+                else:
+                    while temp_counter < (num_of_vouchers - counter):
+                        doc_row.append(voucher_field[counter])
+                        counter += 1
+                        temp_counter += 1
+                    counter -= temp_counter
+                    self.prepare_row(doc_row)
 
             counter += temp_counter
 
